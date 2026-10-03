@@ -1,0 +1,11 @@
+.git
+.github
+.idea
+.claude
+.ai
+build
+deploy
+*.db
+*.db-wal
+*.db-shm
+.env

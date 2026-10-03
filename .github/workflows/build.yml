@@ -1,0 +1,20 @@
+# Push в main: тесты, сборка образа в ghcr.io; сервер homelab подхватит его сам. Pull request: только тесты и сборка.
+# Имя образа — имя репозитория, поэтому файл не нужно править после «Use this template».
+name: build
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  build:
+    # В самом шаблоне образ не собирается: он нужен только копиям.
+    if: ${{ !github.event.repository.is_template }}
+    permissions:
+      contents: read
+      packages: write
+    uses: IKulimanov/homelab/.github/workflows/go-service.yml@main
+    with:
+      image: ${{ github.event.repository.name }}
+      cmd: ./cmd/bot
